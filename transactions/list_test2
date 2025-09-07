@@ -1,0 +1,15 @@
+# add 10 nodes
+# there should be 0 nodes freed and 10 nodes still allocated on the first mark_and_sweep call, then
+# 10 nodes will be freed with 0 still allocated on the second call
+a 12
+a 20
+a 300
+a 1293
+a 5706
+a 9000
+a 9999
+a 1012
+a 1842
+a 2005
+p
+g

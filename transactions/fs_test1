@@ -1,0 +1,12 @@
+# add nodes to the root
+a three
+a two
+a one
+# now add some subdirectories
+a four one
+a five one
+a six one
+a seven two
+a eight two/seven
+p
+g

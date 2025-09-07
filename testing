@@ -1,0 +1,75 @@
+list tests
+Test 1: Test that mark_and_sweep will work in the example where 10 nodes are added but then are all removed
+We expect that in the first call to mark_and_sweep, 10 chunks will be freed with none left allocated, then the
+second call to the function will also run without any errors, freeing 0 nodes and having none left to allocate
+./do_list transactions/list_test1
+Expected Output of gc.log:
+Mark_and_sweep running
+Chunks freed this pass: 10
+Chunks still allocated: 0
+Mark_and_sweep running
+Chunks freed this pass: 0
+Chunks still allocated: 0
+
+Test 2: Test that mark_and_sweep will work in the example where 10 nodes are added and none are removed
+We expect that in the first call to mark_and_sweep, all 10 chunks will remain allocated, then the
+second call to the function then free 10 nodes and having none left to allocate
+./do_list transactions/list_test2
+Expected Output of gc.log:
+Mark_and_sweep running
+Chunks freed this pass: 0
+Chunks still allocated: 10
+Mark_and_sweep running
+Chunks freed this pass: 10
+Chunks still allocated: 0
+
+Test 3: Test that mark_and_sweep will work in the example where 5 nodes are added but then 4 are deleted
+We expect that in the first call to mark_and_sweep, 1 chunk will still be allocated and 4 gets freed, then the
+second call to the function then frees the last node, having none left to allocate
+./do_list transactions/list_test3
+Expected Output of gc.log:
+Mark_and_sweep running
+Chunks freed this pass: 4
+Chunks still allocated: 1
+Mark_and_sweep running
+Chunks freed this pass: 1
+Chunks still allocated: 0
+
+
+fstree tests
+Test 1: Test that mark_and_sweep will work in the example where the root has 3 nodes one, two and three. One has 3 subnodes
+that are leaves, two has 1 subnode that links to another node within, and three is a leaf.
+We expect that mark_and_sweep will execute without any errors and all nodes will maintain in the memory list after the first call,
+then after the second call the memory list will be empty, freeing all nodes from memory
+./do_fstree transactions/fs_test1
+Expected Output of gc.log:
+Mark_and_sweep running
+Chunks freed this pass: 0
+Chunks still allocated: 26
+Mark_and_sweep running
+Chunks freed this pass: 26
+Chunks still allocated: 0
+
+Test 2: Test that mark_and_sweep will work in the example where a hard link is created to a node that links it to the root,
+then the node that the node it is originally from gets removed.
+We expect that the hard linked node will remain as a child in the root and that its other occurrence is no longer found,
+as well as the parent node it is originally from.
+./do_fstree transactions/fs_test2
+Expected Output of gc.log:
+Mark_and_sweep running
+Chunks freed this pass: 7
+Chunks still allocated: 20
+Mark_and_sweep running
+Chunks freed this pass: 20
+Chunks still allocated: 0
+
+Test 3: Test that mark_and_sweep will work in the example where zero nodes have been added to the tree, leaving only the root
+We expect that the root will remain allocated after the first call of mark_and_sweep, then get freed on the subsequent call.
+./do_fstree transactions/fs_test3
+Expected Output of gc.log:
+Mark_and_sweep running
+Chunks freed this pass: 0
+Chunks still allocated: 2
+Mark_and_sweep running
+Chunks freed this pass: 2
+Chunks still allocated: 0

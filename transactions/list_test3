@@ -1,0 +1,12 @@
+# add nodes then delete all but one node
+a 1290
+a 2320
+a 5555
+a 9999
+a 9888
+r 2320
+r 5555
+r 9999
+r 9888
+p
+g

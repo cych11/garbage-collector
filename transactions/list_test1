@@ -1,0 +1,24 @@
+# add and delete 10 nodes
+# there should be 10 nodes to free and 0 node reachable
+a 12
+r 12
+a 20
+a 300
+r 300
+r 20
+a 1293
+a 5706
+a 9000
+r 9000
+r 5706
+r 1293
+a 9999
+a 1012
+a 1842
+a 2005
+r 9999
+r 1012
+r 1842
+r 2005
+p
+g
